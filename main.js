@@ -6,10 +6,10 @@ $(function() {
     $.each(fruits, function(i, fruit){
       // i は配列のindex番号を示している。
       if(input === fruit){
-        $("#result").text(input);
+        $("#list").text(input);
         return false; //見つかったら繰り返しを終了する。
       } else {
-        $("#result").text("一致するものが見つかりません");
+        $("#list").text("一致するものが見つかりません");
       }
     })
     
