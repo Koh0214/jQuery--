@@ -1,18 +1,30 @@
+var fruits = ['apple', 'apricot', 'avocado', 'blueberry', 'cherry', 'coconut', 'cranberry', 'dragonfruit', 'durian', 'grape', 'grapefruit', 'guava', 'kiwi fruit', 'lemon', 'lime', 'lychee', 'mango', 'melon', 'watermelon', 'miracle fruit', 'orange', 'bloodorange','clementine','mandarine','tangerine','papaya','passionfruit','peach','pear','persimmon','physalis','plum/prune','pineapple','pomegranate','raspberry','rambutan','star fruit','strawberry'];
+
 $(function() { 
-  var fruits = ['apple', 'apricot', 'avocado', 'blueberry', 'cherry', 'coconut', 'cranberry', 'dragonfruit', 'durian', 'grape', 'grapefruit', 'guava', 'kiwi fruit', 'lemon', 'lime', 'lychee', 'mango', 'melon', 'watermelon', 'miracle fruit', 'orange', 'bloodorange','clementine','mandarine','tangerine','papaya','passionfruit','peach','pear','persimmon','physalis','plum/prune','pineapple','pomegranate','raspberry','rambutan','star fruit','strawberry'];
+  var list = $("#list");
+
+  function appendList(word) {
+    var item = $('<li class="list">').append(word); //シングルクオーテーションじゃないと動かない。
+    list.append(item);
+  }
 
   $("#submit").on("click", function() {
-    var input = $("#keyword").val();  // val()の左で指定したやつのバリューを取得する
+    var input = $("#keyword").val();
+    var reg = new RegExp("^" + input);
+
+    $(".list").remove();
+
     $.each(fruits, function(i, fruit){
       // i は配列のindex番号を示している。
-      if(input === fruit){
-        $("#list").text(input);
-        return false; //見つかったら繰り返しを終了する。
-      } else {
-        $("#list").text("一致するものが見つかりません");
+      if(fruit.match(reg)){
+        appendList(fruit);
       }
-    })
-    
+    });
+
+    if($(".list").length === 0) {
+      appendList("一致するものが見つかりません");
+    }
+
   });
 
  });
