@@ -13,7 +13,7 @@ $(function() {
     return result;
   }
 
-  $("#submit").on("click", function() {
+  $("#keyword").on("keydown", function() {
     var input     = $("#keyword").val();
     var inputs    = input.split(" ");
     var newinputs = inputs.map(editElement);
