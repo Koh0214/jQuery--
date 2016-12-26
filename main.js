@@ -2,6 +2,7 @@ var fruits = ['apple', 'apricot', 'avocado', 'blueberry', 'cherry', 'coconut', '
 
 $(function() { 
   var list = $("#list");
+  var preWord;
 
   function appendList(word) {
     var item = $('<li class="list">').append(word); //シングルクオーテーションじゃないと動かない。
@@ -13,24 +14,29 @@ $(function() {
     return result;
   }
 
-  $("#keyword").on("keydown", function() {
+  $("#keyword").on("keyup", function() {
     var input     = $("#keyword").val();
-    var inputs    = input.split(" ");
+    var inputs    = input.split(" ").filter(function(e) { return e; });
     var newinputs = inputs.map(editElement);
-    var reg       = new RegExp(newinputs.join("|"));
+    var word      = newinputs.join("|")
+    var reg       = RegExp(word)
 
     $(".list").remove();
 
-    $.each(fruits, function(i, fruit){
+    if (word != preWord && input.length !== 0){
+      $.each(fruits, function(i, fruit){
       // i は配列のindex番号を示している。
-      if(fruit.match(reg)){
-        appendList(fruit);
-      }
-    });
+        if(fruit.match(reg)){
+          appendList(fruit);
+        }
+      });
 
-    if($(".list").length === 0) {
-      appendList("一致するものが見つかりません");
+      if($(".list").length === 0) {
+        appendList("一致するものが見つかりません");
+      }
     }
+
+    // preWord = word;
 
   });
 
