@@ -4,9 +4,12 @@ $(function() {
   $("#submit").on("click", function() {
     var input = $("#keyword").val();  // val()の左で指定したやつのバリューを取得する
     $.each(fruits, function(i, fruit){
+      // i は配列のindex番号を示している。
       if(input === fruit){
         $("#result").text(input);
-        return false;
+        return false; //見つかったら繰り返しを終了する。
+      } else {
+        $("#result").text("一致するものが見つかりません");
       }
     })
     
